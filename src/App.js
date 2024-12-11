@@ -1,9 +1,30 @@
 import './App.css';
 import { useState, useEffect } from "react";
+import validator from 'validator';
 
 function App() {
   const [city, setCity] = useState("regina"); // Default city matches the key in cityCoordinates
   const [temp, setTemp] = useState(null);
+  const [isCelsius, setIsCelsius] = useState(true); // State to toggle between Celsius and Fahrenheit
+
+  // Mapping for display names
+  const cityDisplayNames = {
+    regina: "Regina",
+    saskatoon: "Saskatoon",
+    princeAlbert: "Prince Albert",
+    moosejaw: "Moose Jaw",
+    yorkton: "Yorkton",
+    swiftcurrent: "Swift Current",
+    northbattleford: "North Battleford",
+    estevan: "Estevan",
+    weyburn: "Weyburn",
+    lloydminster: "Lloydminster",
+    martensville: "Martensville",
+    meadowlake: "Meadow Lake",
+    melfort: "Melfort",
+    humboldt: "Humboldt",
+    warman: "Warman",
+  };
 
   // Fetch weather data when the city changes
   useEffect(() => {
@@ -31,33 +52,61 @@ function App() {
       .then((response) => response.json())
       .then((data) => {
         const temperature = data.current_weather.temperature;
-        setTemp(temperature);
+
+        // Validate the temperature before setting it
+        if (validator.isNumeric(temperature.toString())) {
+          setTemp(temperature);
+        } else {
+          console.error('Invalid temperature received:', temperature);
+        }
       })
       .catch((error) => console.error(`Error fetching ${city} weather data:`, error));
-  }, [city]); // Dependency array ensures this runs only when `city` changes
+  }, [city]);
+
+  const convertTemp = (temperature) => Math.round((temperature * 9) / 5 + 32);
 
   return (
     <div className="App">
-      <h1>Weather App</h1>
-      <p>City: {city}</p>
-      <p>Temperature: {temp !== null ? `${temp}°C` : "Loading..."}</p>
-      <div id="buttons">
-        <button onClick={() => setCity("regina")}>Show Regina Weather</button>
-        <button onClick={() => setCity("saskatoon")}>Show Saskatoon Weather</button>
-        <button onClick={() => setCity("princeAlbert")}>Show Prince Albert Weather</button>
-        <button onClick={() => setCity("moosejaw")}>Show Moose Jaw Weather</button>
-        <button onClick={() => setCity("yorkton")}>Show Yorkton Weather</button>
-        <button onClick={() => setCity("swiftcurrent")}>Show Swift Current Weather</button>
-        <button onClick={() => setCity("northbattleford")}>Show North Battleford Weather</button>
-        <button onClick={() => setCity("estevan")}>Show Estevan Weather</button>
-        <button onClick={() => setCity("weyburn")}>Show Weyburn Weather</button>
-        <button onClick={() => setCity("lloydminster")}>Show Lloydminster Weather</button>
-        <button onClick={() => setCity("martensville")}>Show Martensville Weather</button>
-        <button onClick={() => setCity("meadowlake")}>Show Meadow Lake Weather</button>
-        <button onClick={() => setCity("melfort")}>Show Melfort Weather</button>
-        <button onClick={() => setCity("humboldt")}>Show Humboldt Weather</button>
-        <button onClick={() => setCity("warman")}>Show Warman Weather</button>
+
+
+      <div id="top">
+         {/* City Name shown below */}
+      <h2>{cityDisplayNames[city]}</h2>
+      {/* Tempiture shown below */}
+      <h1>{" "}
+        {temp !== null
+          ? isCelsius
+            ? `${Math.round(temp)}°C` // Round Celsius to a whole number
+            : `${convertTemp(temp)}°F` // Use rounded Fahrenheit value
+          : "Loading..."}
+      </h1>
       </div>
+
+
+
+      <div id="buttons">
+        <button onClick={() => setCity("regina")}>Regina Tempiture</button>
+        <button onClick={() => setCity("saskatoon")}>Saskatoon Tempiture</button>
+        <button onClick={() => setCity("princeAlbert")}>Prince Albert Tempiture</button>
+        <button onClick={() => setCity("moosejaw")}>Moose Jaw Tempiture</button>
+        <button onClick={() => setCity("yorkton")}>Yorkton Tempiture</button>
+        <button onClick={() => setCity("swiftcurrent")}>Swift Current Tempiture</button>
+        <button onClick={() => setCity("northbattleford")}>North Battleford Tempiture</button>
+        <button onClick={() => setCity("estevan")}>Estevan Tempiture</button>
+        <button onClick={() => setCity("weyburn")}>Weyburn Tempiture</button>
+        <button onClick={() => setCity("lloydminster")}>Lloydminster Tempiture</button>
+        <button onClick={() => setCity("martensville")}>Martensville Tempiture</button>
+        <button onClick={() => setCity("meadowlake")}>Meadow Lake Tempiture</button>
+        <button onClick={() => setCity("melfort")}>Melfort Tempiture</button>
+        <button onClick={() => setCity("humboldt")}>Humboldt Tempiture</button>
+        <button onClick={() => setCity("warman")}>Warman Tempiture</button>
+      </div>
+
+      <button id="switcher" onClick={() => setIsCelsius(!isCelsius)}>
+        Switch to {isCelsius ? "Fahrenheit" : "Celsius"}
+      </button>
+
+      
     </div>
   );
 }

@@ -7,3 +7,23 @@ body {
   width: 100vw; /* Full viewport width */
   height: 100vh; /* Full viewport height */
 }
+
+
+#top{
+  text-align: center;
+}
+#top h1{
+  margin-top: 0%;
+}
+#top h2{
+  margin-bottom: 0%;
+}
+
+#buttons button{
+  background-color: greenyellow;
+}
+
+#switcher{
+  background-color: greenyellow;
+}
+
