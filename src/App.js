@@ -1,6 +1,7 @@
 import './App.css';
 import { useState, useEffect } from "react";
 import validator from 'validator';
+import SeasonAndTimeComponent from "./SeasonAndTimeComponent";
 
 function App() {
   const [city, setCity] = useState("regina"); // Default city matches the key in cityCoordinates
@@ -72,48 +73,43 @@ function App() {
 
   return (
     <div className="App">
-
-
       <div id="top">
-         {/* City Name shown below */}
-      <h2>{cityDisplayNames[city]}</h2>
-      {/* Tempiture shown below */}
-      <h1>
-        {temp !== null
-           ? isCelsius
-            ? `${Math.round(temp)}°C`
-            : `${Math.round((temp * 9) / 5 + 32)}°F`
-           : "Loading..."}
-</h1>
+        
+        {/* City Name shown below */}
+        <h2>{cityDisplayNames[city]}</h2>
+        {/* Temperature shown below */}
+        <h1>
+          {temp !== null
+            ? isCelsius
+              ? `${Math.round(temp)}°C`
+              : `${Math.round((temp * 9) / 5 + 32)}°F`
+            : "Loading..."}
+        </h1>
+        
       </div>
-
-<h3>Saskatchewan Temperatures</h3>
+<div id="desktop-grid">
+  <div>
+    <SeasonAndTimeComponent /> {/* Dynamically sets background for what time a day and season it is */}
+  </div>
+  <div>
+      <h3>Saskatchewan Temperatures</h3>
 
       <div id="buttons">
-        <button onClick={() => setCity("regina")}>Regina</button>
-        <button onClick={() => setCity("saskatoon")}>Saskatoon</button>
-        <button onClick={() => setCity("princeAlbert")}>Prince Albert</button>
-        <button onClick={() => setCity("moosejaw")}>Moose Jaw</button>
-        <button onClick={() => setCity("yorkton")}>Yorkton</button>
-        <button onClick={() => setCity("swiftcurrent")}>Swift Current</button>
-        <button onClick={() => setCity("northbattleford")}>North Battleford</button>
-        <button onClick={() => setCity("estevan")}>Estevan</button>
-        <button onClick={() => setCity("weyburn")}>Weyburn</button>
-        <button onClick={() => setCity("lloydminster")}>Lloydminster</button>
-        <button onClick={() => setCity("martensville")}>Martensville</button>
-        <button onClick={() => setCity("meadowlake")}>Meadow Lake</button>
-        <button onClick={() => setCity("melfort")}>Melfort</button>
-        <button onClick={() => setCity("humboldt")}>Humboldt</button>
-        <button onClick={() => setCity("warman")}>Warman</button>
+        {Object.keys(cityDisplayNames).map((key) => (
+          <button key={key} onClick={() => setCity(key)}>
+            {cityDisplayNames[key]}
+          </button>
+        ))}
       </div>
 
-<div id="switcher">
-      <button  onClick={() => setIsCelsius(!isCelsius)}>
-        Switch to {isCelsius ? "Fahrenheit" : "Celsius"}
-      </button>
+      <div id="switcher">
+        <button onClick={() => setIsCelsius(!isCelsius)}>
+          Switch to {isCelsius ? "Fahrenheit" : "Celsius"}
+        </button>
+      </div>
+  </div>
 </div>
-      
-    </div>
+</div>
   );
 }
 
