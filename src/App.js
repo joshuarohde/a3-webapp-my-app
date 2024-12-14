@@ -45,24 +45,29 @@ function App() {
       humboldt: { latitude: 52.2014, longitude: -105.1234 },
       warman: { latitude: 52.3215, longitude: -106.5842 },
     };
-
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityCoordinates[city].latitude}&longitude=${cityCoordinates[city].longitude}&current_weather=true`;
-
-    fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        const temperature = data.current_weather.temperature;
-
-        // Validate the temperature before setting it
-        if (validator.isNumeric(temperature.toString())) {
-          setTemp(temperature);
-        } else {
-          console.error('Invalid temperature received:', temperature);
-        }
-      })
-      .catch((error) => console.error(`Error fetching ${city} weather data:`, error));
-  }, [city]);
-
+  
+    const fetchWeather = () => {
+      const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityCoordinates[city].latitude}&longitude=${cityCoordinates[city].longitude}&current_weather=true`;
+  
+      fetch(url)
+        .then((response) => response.json())
+        .then((data) =>
+          validator.isNumeric(data?.current_weather?.temperature?.toString())
+            ? setTemp(data.current_weather.temperature)
+            : console.error("Invalid temperature received:", data.current_weather.temperature)
+        )
+        .catch((error) =>
+          console.error(`Error fetching ${city} weather data:`, error)
+        );
+    };
+  
+    // Initial fetch and interval setup
+    fetchWeather();
+    const interval = setInterval(fetchWeather, 300000); // 5 minutes
+  
+    // Cleanup interval on unmount or dependency change
+    return () => clearInterval(interval);
+  }, [city]); // Dependency on the city
   const convertTemp = (temperature) => Math.round((temperature * 9) / 5 + 32);
 
   return (
@@ -73,13 +78,13 @@ function App() {
          {/* City Name shown below */}
       <h2>{cityDisplayNames[city]}</h2>
       {/* Tempiture shown below */}
-      <h1>{" "}
+      <h1>
         {temp !== null
-          ? isCelsius
-            ? `${Math.round(temp)}°C` // Round Celsius to a whole number
-            : `${convertTemp(temp)}°F` // Use rounded Fahrenheit value
-          : "Loading..."}
-      </h1>
+           ? isCelsius
+            ? `${Math.round(temp)}°C`
+            : `${Math.round((temp * 9) / 5 + 32)}°F`
+           : "Loading..."}
+</h1>
       </div>
 
 <h3>Saskatchewan Temperatures</h3>
@@ -102,10 +107,11 @@ function App() {
         <button onClick={() => setCity("warman")}>Warman</button>
       </div>
 
-      <button id="switcher" onClick={() => setIsCelsius(!isCelsius)}>
+<div id="switcher">
+      <button  onClick={() => setIsCelsius(!isCelsius)}>
         Switch to {isCelsius ? "Fahrenheit" : "Celsius"}
       </button>
-
+</div>
       
     </div>
   );
