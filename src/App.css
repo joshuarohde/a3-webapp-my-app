@@ -1,12 +1,8 @@
-/* App.css */
+/* Mobile-first styles */
 body {
-  background-size: cover; /* Ensures the background covers the entire viewport */
-  background-position: center; /* Centers the background image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  background-attachment: fixed; /* Keeps the background fixed when scrolling */
-  width: 100vw; /* Full viewport width */
-  height: 100vh; /* Full viewport height */
+  font-size: 8vw;
 }
+
 
 
 #top{
@@ -19,11 +15,43 @@ body {
   margin-bottom: 0%;
 }
 
+
+h3{
+  font-size: 6vw;
+}
+
+
+#buttons{
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
 #buttons button{
-  background-color: greenyellow;
+  background-color: rgb(15, 84, 34);
+  color: white;
+  width: 50vw;
+  border-radius: 9px;
+
+}
+
+#buttons button:hover{
+  background-color: rgb(14, 145, 20)
 }
 
 #switcher{
-  background-color: greenyellow;
+  background-color: rgb(23, 71, 174);
+  color: white;
 }
 
+
+
+
+
+
+
+/* Larger screens */
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}

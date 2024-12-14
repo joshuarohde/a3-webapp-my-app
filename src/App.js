@@ -82,24 +82,24 @@ function App() {
       </h1>
       </div>
 
-
+<h3>Saskatchewan Temperatures</h3>
 
       <div id="buttons">
-        <button onClick={() => setCity("regina")}>Regina Tempiture</button>
-        <button onClick={() => setCity("saskatoon")}>Saskatoon Tempiture</button>
-        <button onClick={() => setCity("princeAlbert")}>Prince Albert Tempiture</button>
-        <button onClick={() => setCity("moosejaw")}>Moose Jaw Tempiture</button>
-        <button onClick={() => setCity("yorkton")}>Yorkton Tempiture</button>
-        <button onClick={() => setCity("swiftcurrent")}>Swift Current Tempiture</button>
-        <button onClick={() => setCity("northbattleford")}>North Battleford Tempiture</button>
-        <button onClick={() => setCity("estevan")}>Estevan Tempiture</button>
-        <button onClick={() => setCity("weyburn")}>Weyburn Tempiture</button>
-        <button onClick={() => setCity("lloydminster")}>Lloydminster Tempiture</button>
-        <button onClick={() => setCity("martensville")}>Martensville Tempiture</button>
-        <button onClick={() => setCity("meadowlake")}>Meadow Lake Tempiture</button>
-        <button onClick={() => setCity("melfort")}>Melfort Tempiture</button>
-        <button onClick={() => setCity("humboldt")}>Humboldt Tempiture</button>
-        <button onClick={() => setCity("warman")}>Warman Tempiture</button>
+        <button onClick={() => setCity("regina")}>Regina</button>
+        <button onClick={() => setCity("saskatoon")}>Saskatoon</button>
+        <button onClick={() => setCity("princeAlbert")}>Prince Albert</button>
+        <button onClick={() => setCity("moosejaw")}>Moose Jaw</button>
+        <button onClick={() => setCity("yorkton")}>Yorkton</button>
+        <button onClick={() => setCity("swiftcurrent")}>Swift Current</button>
+        <button onClick={() => setCity("northbattleford")}>North Battleford</button>
+        <button onClick={() => setCity("estevan")}>Estevan</button>
+        <button onClick={() => setCity("weyburn")}>Weyburn</button>
+        <button onClick={() => setCity("lloydminster")}>Lloydminster</button>
+        <button onClick={() => setCity("martensville")}>Martensville</button>
+        <button onClick={() => setCity("meadowlake")}>Meadow Lake</button>
+        <button onClick={() => setCity("melfort")}>Melfort</button>
+        <button onClick={() => setCity("humboldt")}>Humboldt</button>
+        <button onClick={() => setCity("warman")}>Warman</button>
       </div>
 
       <button id="switcher" onClick={() => setIsCelsius(!isCelsius)}>
