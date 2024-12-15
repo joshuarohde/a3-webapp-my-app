@@ -46,7 +46,7 @@ function App() {
       humboldt: { latitude: 52.2014, longitude: -105.1234 },
       warman: { latitude: 52.3215, longitude: -106.5842 },
     };
-  
+  //Grabs the weather API
     const fetchWeather = () => {
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${cityCoordinates[city].latitude}&longitude=${cityCoordinates[city].longitude}&current_weather=true`;
   
@@ -62,14 +62,14 @@ function App() {
         );
     };
   
-    // Initial fetch and interval setup
+    // re fetch every 5 mins
     fetchWeather();
     const interval = setInterval(fetchWeather, 300000); // 5 minutes
   
     // Cleanup interval on unmount or dependency change
     return () => clearInterval(interval);
   }, [city]); // Dependency on the city
-  const convertTemp = (temperature) => Math.round((temperature * 9) / 5 + 32);
+  const convertTemp = (temperature) => Math.round((temperature * 9) / 5 + 32);// Change temp math
 
   return (
     <div className="App">
